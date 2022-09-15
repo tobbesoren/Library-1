@@ -88,9 +88,9 @@ public class Main {
                     return;
                 }
             }
-            System.out.println("The book is not in the catalogue.");
-            return;
         }
+        System.out.println("The book is not in the catalogue.");
+
     }
 
     static void listBooks(ArrayList<Book> bookList) {
@@ -111,11 +111,10 @@ public class Main {
             if (book.getTitle().equals(bookTitle)) {
                 if (book.returnBook()) {
                     System.out.println(book.getTitle() + " is returned.");
-                    return;
                 } else {
                     System.out.println("The book is not loaned!");
-                    return;
                 }
+                return;
             }
         }
         System.out.println("The book is not in the catalogue.");
