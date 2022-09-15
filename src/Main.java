@@ -46,7 +46,6 @@ public class Main {
                 quit();
             }
         }
-        //System.out.println(bookList);
     }
 
     static Book addBook(Scanner sc) {
@@ -65,9 +64,8 @@ public class Main {
         sc.nextLine();
 
         return new Book(title, writer, year, edition);
-
-
     }
+
     static void searchBook(Scanner sc, ArrayList<Book> bookList) {
 
         String bookTitle;
@@ -79,17 +77,20 @@ public class Main {
         for (Book b: bookList){
             if (b.getTitle().equals(bookTitle)){
                 System.out.println(b);
-                if(b.getAvailability()) {
-                    System.out.println("Do you want to check out the book? y/n");
-                    menuChoice = sc.nextLine();
-                    if(menuChoice.equals("y")) {
-                        b.loan();
+                System.out.println("Do you want to check out the book? y/n");
+                menuChoice = sc.nextLine();
+                if(menuChoice.equals("y")) {
+                    if (b.loan()){
+                        System.out.println("You have borrowed the book.");
+                    } else {
+                        System.out.println("The book is unavailable.");
                     }
+                    return;
                 }
-                return;
             }
+            System.out.println("The book is not in the catalogue.");
+            return;
         }
-        System.out.println("The book is not in the catalogue.");
     }
 
     static void listBooks(ArrayList<Book> bookList) {
@@ -108,9 +109,8 @@ public class Main {
 
         for(Book book: bookList) {
             if (book.getTitle().equals(bookTitle)) {
-                if (!book.getAvailability()) {
-                    book.returnBook();
-                    System.out.println(book.getTitle() + "is returned.");
+                if (book.returnBook()) {
+                    System.out.println(book.getTitle() + " is returned.");
                     return;
                 } else {
                     System.out.println("The book is not loaned!");
